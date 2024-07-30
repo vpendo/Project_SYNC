@@ -373,7 +373,7 @@ section.partners{
 	padding: 5px;
 }
 .partners .partners-slider .brand-item img{
-	width: 120px;
+	width: 100%;
 	display: inline-block;
 }
 .owl-carousel .owl-nav{
@@ -487,6 +487,11 @@ section.courses{
 	width: 100%;
 	padding: 100px 8% 20px;
 }
+
+a{
+	text-decoration: none;
+}
+
 .courses .section-header{
 	position: relative;
 	display: flex;
