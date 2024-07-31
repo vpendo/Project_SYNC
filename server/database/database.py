@@ -3,11 +3,11 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 # Database connection details
-DATABASE_USER = 'root'
-DATABASE_PASSWORD = ''
-DATABASE_HOST = 'localhost'
-DATABASE_PORT = '3306'
-DATABASE_NAME = 'sync'
+DATABASE_USER = 'avnadmin'
+DATABASE_PASSWORD = 'AVNS_xKDfzT9uJwFucEP5h8I'
+DATABASE_HOST = 'mysql-108478af-syncr.g.aivencloud.com'
+DATABASE_PORT = '13099'
+DATABASE_NAME = 'defaultdb'
 
 # Construct the database URL
 DATABASE_URL = f"mysql+pymysql://{DATABASE_USER}:{DATABASE_PASSWORD}@{DATABASE_HOST}:{DATABASE_PORT}/{DATABASE_NAME}"
