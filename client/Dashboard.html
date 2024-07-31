@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--  *****   Link To Custom CSS Style Sheet   *****  -->
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<!--  *****   Link To Font Awsome Icons   *****  -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+
+	<!--  *****   Link To Owl Carousel   *****  -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Welcome to SYNC</title>
+</head>
+<body>
+<!--   *** Website Container Starts ***   -->
+<div class="website-container">
+	
+<!--   *** Home Section Starts ***   -->
+<section class="home" id="home">
+	<!--   === Main Navbar Starts ===   -->
+	<nav class="main-navbar">
+		<a href="#" class="logo">
+			<img src="images/home/logo.png">
+		</a>
+		<ul class="nav-list">
+			<li><a href="index.html#home">Home</a></li>
+			<li><a href="dashboard.html">Student Info</a></li>
+			<li><a href="courses.html#categories">Categories</a></li>
+			
+		</ul>	
+		<a href="#" class="get-started-btn-container">
+			<button class="get-started-btn btn">Log Out</button>
+		</a>
+		<div class="menu-btn">
+			<span></span>
+		</div>
+	</nav> <br><br><br><br>
+	<!--   === Main Navbar Ends ===   -->
+    </div>
+    <script>
+        // Load student info from localStorage
+        const studentInfo = JSON.parse(localStorage.getItem('studentInfo')) || {
+            full_name: '',
+            email: '',
+            phone: '',
+            gender: '',
+            country: 'Rwanda'
+        };
+
+        // Display student info
+        document.getElementById('student-name').innerText += studentInfo.full_name;
+        document.getElementById('student-email').innerText += studentInfo.email;
+        document.getElementById('student-phone').innerText += studentInfo.phone;
+        document.getElementById('student-gender').innerText += studentInfo.gender;
+
+        // Simulated joined courses (in a real-world scenario, this would come from the backend)
+        const joinedCourses = JSON.parse(localStorage.getItem('joinedCourses')) || [];
+
+        function joinCourse(course) {
+            if (!joinedCourses.includes(course)) {
+                joinedCourses.push(course);
+                localStorage.setItem('joinedCourses', JSON.stringify(joinedCourses));
+                updateJoinedCourses();
+            }
+        }
+
+        function updateJoinedCourses() {
+            const joinedCoursesList = document.getElementById('joined-courses-list');
+            joinedCoursesList.innerHTML = '';
+            joinedCourses.forEach(course => {
+                const li = document.createElement('li');
+                li.textContent = course;
+                joinedCoursesList.appendChild(li);
+            });
+        }
+
+        // Initial load of joined courses
+        updateJoinedCourses();
+
+        // Show specific section
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                if (section.id === sectionId) {
+                    section.classList.add('active');
+                } else {
+                    section.classList.remove('active');
+                }
+            });
+        }
+
+        // Show default section
+        showSection('student-info');
+    </script>
+</body>
+</html>

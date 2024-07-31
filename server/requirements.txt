@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+# for authentication
+python-multipart
+python-jose[cryptography]
+passlib[bcrypt]
+# end authentication
+# for database
+sqlalchemy
+pymysql
+# end database

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Student Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" integrity="sha512-JSCFHhKDilTRRXe9ak/FJ28dcpOJxzQaCd3Xg8MyF6XFjODhy/YMCM8HW0TFDckNHWUewW+kfvhin43hKtJxAw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-container .input-group {
+            margin-bottom: 15px;
+        }
+        .form-container .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-container .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container .btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .form-container .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Logout</h2>
+    <form id="logout-form">
+        <div class="input-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="input-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn">Logout</button>
+        <div style="display: flex; gap:12px">
+            <a href="register.html" style="margin-top: 12px;display: block;">Register</a>
+            <a href="index.html" style="margin-top: 12px;display: block;">Home</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('logout-form').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        
+        // Get form values
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('password').value;
+
+        // Validate form inputs
+        if (email === '' || password === '') {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        try {
+            // Prepare the data payload
+            const logoutData = new URLSearchParams();
+            logoutData.append('email', email);
+            logoutData.append('password', password);
+
+            // Send POST request to the logout endpoint
+            const response = await axios.post('http://127.0.0.1:8000/user/logout', logoutData, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+
+            // Check if the response status code indicates success (2xx)
+            if (response && response.status >= 200 && response.status < 300) {
+                alert('Logout successful');
+                // Redirect to the login page or home page
+                window.location.href = 'index.html';  // Change this to your desired redirect page
+            } else {
+                alert('Logout failed');
+                console.error('Unexpected response status:', response.status);
+            }
+        } catch (error) {
+            // Handle errors
+            alert(error.response.data ? error.response.data.detail : error.message);
+        }
+    });
+</script>
+
+</body>
+</html>

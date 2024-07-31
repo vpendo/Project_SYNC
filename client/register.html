@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Student Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #8a8585;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-container .input-group {
+            margin-bottom: 15px;
+        }
+        .form-container .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-container .input-group input, .form-container .input-group select {
+            width: 95%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container .btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .form-container .btn:hover {
+            background-color: #0056b3;
+        }
+        .form-container .forgot-password {
+            text-align: right;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+        .form-container .forgot-password a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .form-container .forgot-password a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" integrity="sha512-JSCFHhKDilTRRXe9ak/FJ28dcpOJxzQaCd3Xg8MyF6XFjODhy/YMCM8HW0TFDckNHWUewW+kfvhin43hKtJxAw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Student Registration</h2>
+    <form id="student-registration-form">
+        <div class="input-group">
+            <label for="full-name">Full Name:</label>
+            <input type="text" id="full-name" name="full_name" required>
+        </div>
+        <div class="input-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="input-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="input-group">
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" name="confirm_password" required>
+        </div>
+        <div class="forgot-password">
+            <a href="#">Forgot Password?</a>
+        </div>
+    
+        <button type="submit" class="btn">Register</button>
+        <div style="display: flex; gap:12px">
+            <a href="login.html" style="margin-top: 12px;display: block;">Login</a>
+            <a href="index.html" style="margin-top: 12px;display: block;">Home</a>
+        </div>
+    </form>
+</div>
+<script>
+    const form = document.getElementById('student-registration-form');
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        let full_name = document.getElementById('full-name').value;
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('password').value;
+        let confirm_password = document.getElementById('confirm-password').value;
+            if(full_name === '' || email === '' || password === '' || confirm_password === '' ) {
+            alert('Please fill in all fields');
+            return;
+        }else if (password !== confirm_password) {
+            alert('Passwords do not match');
+            return;
+        }
+            try {
+        // Prepare the data payload
+        const userData = {
+            full_name: full_name,
+            email: email,
+            password_hash: confirm_password  // Password should be hashed server-side
+        };
+
+        // Send POST request to the FastAPI endpoint
+        const response = await axios.post('http://127.0.0.1:8000/user/register', userData);
+
+        // Handle the response (optional, depending on what you want to do)
+    // Check if the response status code indicates success (2xx)
+    if (response && response.status >= 200 && response.status < 300) {
+        alert('User registered successfully');
+        window.location.href = 'login.html';
+    } else {
+        alert('Failed to register user');
+        console.error('Unexpected response status:', response.status);
+    }
+    } catch (error) {
+        // Handle errors with more detail
+        console.error('Error registering user:', error.response ? error.response.data : error.message);
+        if(error.response.status==400){
+            alert(error.response.data.detail)
+        }
+    }
+
+        })
+</script>
+</body>
+</html>
