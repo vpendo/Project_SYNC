@@ -25,11 +25,11 @@ To get started with this project:
 
 Clone the Repository
 
-``git clone https:``
+``git clone https:https://github.com/vpendo/Project_SYNC.git``
 
 Navigate to the Project Directory
 
-``cd Project SYNC``
+``cd Project_SYNC``
 
 Open the HTML File
 Open index.html in your web browser to view the project.
