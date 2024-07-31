@@ -487,9 +487,17 @@ section.courses{
 	width: 100%;
 	padding: 100px 8% 20px;
 }
+<<<<<<< HEAD:client/style.css
 a{
 	text-decoration: none;
 }
+=======
+
+a{
+	text-decoration: none;
+}
+
+>>>>>>> 2b0c7a77c203bcb3b32d1a1b7f9fac3f16319f72:style.css
 .courses .section-header{
 	position: relative;
 	display: flex;
